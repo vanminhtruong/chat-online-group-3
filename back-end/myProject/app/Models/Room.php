@@ -9,6 +9,8 @@ class Room extends Model
 {
     protected $fillable = ['name', 'created_by'];
 
+    protected $hidden = ['created_at', 'updated_at'];
+
     public function creator()
     {
         return $this->belongsTo(User::class, 'created_by');

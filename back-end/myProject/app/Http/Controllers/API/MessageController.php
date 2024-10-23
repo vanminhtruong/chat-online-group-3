@@ -13,7 +13,7 @@ class MessageController extends RoutingController
     public function index(Request $request)
     {
         $messages = Message::select('id', 'sender_id', 'receiver_id', 'room_id', 'content', 'created_at', 'updated_at')
-            ->orderBy('created_at', 'desc')
+            ->orderBy('id', 'asc')
             ->paginate(10); 
 
         return response()->json([
@@ -29,9 +29,6 @@ class MessageController extends RoutingController
         ], 200);
     }
 
-    /**
-     * Store a newly created message in storage.
-     */
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [

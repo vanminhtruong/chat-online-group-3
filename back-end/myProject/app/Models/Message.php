@@ -9,7 +9,10 @@ class Message extends Model
 {
     use HasFactory;
     
-    public $timestamps = true; // Thêm dòng này để bật timestamps
+    public $timestamps = false;
+
+    protected $hidden = ['created_at', 'updated_at'];
+
     
     protected $fillable = ['sender_id', 'receiver_id', 'room_id', 'content'];
 
