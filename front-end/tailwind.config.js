@@ -14,7 +14,7 @@ module.exports = {
         },
      },
      fontFamily: {
-      publicSans:["Public Sans", sans-serif],
+      publicSans:["Public Sans"],
      },
   },
   plugins: [],
