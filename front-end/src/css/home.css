@@ -1,0 +1,11 @@
+.icon{
+    width: 80px;
+    height: 80px;
+    cursor: pointer;
+    padding: 20px;
+}
+.icon:hover{
+    background: #c0c2cb;
+    border-radius: 10px;
+    
+}
