@@ -10,6 +10,10 @@ module.exports = {
           textMess:"text-gray-600"
         },
         screens: {
+            "max-mb": { max: "375px" },
+            "max-md": { max: "768px" },
+            "max-lg": { max: "1024px" },
+            "max-xl": { max: "1290px" },
           
         },
      },

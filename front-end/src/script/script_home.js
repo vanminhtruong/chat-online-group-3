@@ -3,27 +3,32 @@
   const btnChats = document.querySelector('.btn-chat');
   const btnGroups = document.querySelector('.btn-group');
 
-  menuButton.addEventListener('click', () => {
-      if (menuDropdown.classList.contains('hidden')) {
-          menuDropdown.classList.remove('hidden');
-      } else {
-          menuDropdown.classList.add('hidden');
-      }
-  });
+  const sidebar = document.getElementById('sidebar');
+        const closeButton = document.getElementById('closeButton');
 
-  document.addEventListener('click', (e) => {
-      if (!menuDropdown.contains(e.target) && !menuButton.contains(e.target)) {
-          menuDropdown.classList.add('hidden');
-      }
-  });
+        menuButton.addEventListener('click', () => {
+            sidebar.classList.toggle('-translate-x-full');
+        });
+
+        closeButton.addEventListener('click', () => {
+            sidebar.classList.add('-translate-x-full');
+        });
+
+  
 
   btnChats.addEventListener('click', () => {
       document.getElementsByTagName('h1')[0].innerText="CHATS"
-      document.getElementById('chats').classList=('block');
-      document.getElementById('groups').classList=('hidden');
+      document.getElementById('chats').style.display=('block');
+      document.getElementById('groups').style.display=('none');
   });
   btnGroups.addEventListener('click', () => {
     document.getElementsByTagName('h1')[0].innerText="GROUPS";
-    document.getElementById('chats').classList=('hidden');
-    document.getElementById('groups').classList=('block');
+    document.getElementById('chats').style.display=('none');
+    document.getElementById('groups').style.display=('block');
   });
+
+
+  document.getElementById('delete-chat').addEventListener('click',()=>{
+    console.log("aoidhouiashdoasdosa");
+    
+  })
