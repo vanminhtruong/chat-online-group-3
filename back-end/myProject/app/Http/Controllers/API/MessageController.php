@@ -10,19 +10,23 @@ use Illuminate\Support\Facades\Validator;
 
 class MessageController extends RoutingController
 {
-    /**
-     * Display a listing of the messages.
-     */
     public function index(Request $request)
     {
-        // Số lượng tin nhắn trên mỗi trang (mặc định là 10)
-        $perPage = $request->input('per_page', 10);
-        
-        $messages = Message::with(['sender', 'receiver', 'room'])
+        $messages = Message::select('id', 'sender_id', 'receiver_id', 'room_id', 'content', 'created_at', 'updated_at')
             ->orderBy('created_at', 'desc')
-            ->paginate($perPage);
-            
-        return response()->json($messages, 200);
+            ->paginate(10); 
+
+        return response()->json([
+            'data' => $messages->items(),
+            'pagination' => [
+                'total' => $messages->total(),
+                'per_page' => $messages->perPage(),
+                'current_page' => $messages->currentPage(),
+                'last_page' => $messages->lastPage(),
+                'from' => $messages->firstItem(),
+                'to' => $messages->lastItem()
+            ]
+        ], 200);
     }
 
     /**
