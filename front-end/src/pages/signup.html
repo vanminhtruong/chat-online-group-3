@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../output.css">
+    <title>Sign up</title>
+</head>
+<body class="flex items-center justify-center min-h-screen sm:bg-bgMess font-publicSans ">
+    <div class="flex items-center flex-col justify-center sm:bg-white py-10 px-12 rounded-lg sm:shadow-lg shadow-none w-full sm:w-auto sm:h-auto">
+        <p class="font-bold text-4xl my-4">Sign up</p>
+    
+        <form id="signupForm" class="w-full max-w-xs" action="">
+            <p id="validName" class="text-red-500 text-sm"></p>
+            <input id="fullName" class="w-full p-2 mb-4 border border-bgMess rounded-lg" type="text" placeholder="User name">
+            
+            <p id="validEmail" class="text-red-500 text-sm"></p>
+            <input id="email" class="w-full p-2 mb-4 border border-bgMess rounded-lg" type="text" placeholder="Email">
+            
+            <p id="validPassword" class="text-red-500 text-sm"></p>
+            <input id="password" class="w-full p-2 mb-4 border border-bgMess rounded-lg" type="password" placeholder="Password">
+            
+            <p id="validConfirmPassword" class="text-red-500 text-sm"></p>
+            <input id="confirmPassword" class="w-full p-2 mb-4 border border-bgMess rounded-lg" type="password" placeholder="Confirm password">
+            
+            <button id="signup" type="submit" class="w-full p-2 mb-4 bg-bgMess text-white rounded-lg transform transition-transform duration-200 hover:scale-105">Sign up</button>
+        </form>
+        
+        <a class="text-bgMess hover:text-[#4b4ee9] hover:font-bold text-sm mb-4" href="#">Forgot password</a>
+        <button class="w-full p-2 mb-4 bg-bgMess text-white rounded-lg transform transition-transform duration-200 hover:scale-105">Log in</button>
+
+    </div>
+    <script src="../scripts/signup.js"></script>
+</body>
+</html>
