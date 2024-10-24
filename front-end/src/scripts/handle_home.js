@@ -3,6 +3,8 @@ document.querySelector('#btn-back').addEventListener('click', () => {
   document.querySelector('#listChat').style.display = 'block';
 });
 
+
+
 function reponsiveDisplay() {
   if (window.innerWidth < 640) {
       document.querySelector('#boxChat').style.display = 'none';

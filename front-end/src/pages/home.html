@@ -63,6 +63,28 @@
           <button id="btn-new-chat" class="menuButton focus:outline-none cursor-pointer">
             <img class="w-6 h-6 sm:w-8 sm:h-8" src="../assets/icon/dropdow.svg" alt="" />
           </button>
+
+          
+          <div id="createRoomForm" class="hidden mt-4 p-4 bg-white shadow-md rounded">
+            <h2 class="text-lg font-semibold mb-2">Nhập Thông Tin Phòng</h2>
+            <input type="text" id="roomName" placeholder="Tên Phòng" class="border p-2 w-full mb-2" />
+            <div class="mb-2">
+                <label class="block mb-1">Người Tham Gia:</label>
+                <label class="inline-flex items-center">
+                    <input type="checkbox" value="user1" class="form-checkbox h-5 w-5 text-blue-600">
+                    <span class="ml-2">Người A</span>
+                </label>
+                <label class="inline-flex items-center">
+                    <input type="checkbox" value="user2" class="form-checkbox h-5 w-5 text-blue-600">
+                    <span class="ml-2">Người B</span>
+                </label>
+                <label class="inline-flex items-center">
+                    <input type="checkbox" value="user3" class="form-checkbox h-5 w-5 text-blue-600">
+                    <span class="ml-2">Người C</span>
+                </label>
+            </div>
+            <button id="submitRoom" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">Tạo</button>
+        </div>
          
       </div>
 
@@ -88,20 +110,20 @@
       <!-- Chat Messages -->
       <div class="flex-1 overflow-y-auto  h-[80%]  p-4 pb-36">
         <!-- Incoming Message -->
-        <div class="flex mb-4 cursor-pointer ">
+        <div id="receiver" class="flex mb-4 cursor-pointer ">
           <div class="w-9 h-9 rounded-full flex items-center justify-center mr-2">
             <img src="https://placehold.co/200x/ffa8e4/ffffff.svg?text=ʕ•́ᴥ•̀ʔ&font=Lato" alt="User Avatar"
               class="w-8 h-8 rounded-full" />
           </div>
           <div class="flex max-w-xs sm:max-w-sm lg:max-w-md bg-gray-100 rounded-lg p-3">
-            <p class="text-gray-700">Hey Bob, how's it going?</p>
+            <p id="text-receiver" class="text-gray-700">Hey Bob, how's it going?</p>
           </div>
         </div>
 
         <!-- Outgoing Message -->
-        <div class="flex justify-end mb-4 cursor-pointer ">
+        <div id="sender" class="flex justify-end mb-4 cursor-pointer">
           <div class="flex max-w-xs sm:max-w-sm lg:max-w-md bg-indigo-500 text-white rounded-lg p-3">
-            <p>
+            <p id="text-send">
               Hi Truong! I'm good, just finished a great book. How about you?
             </p>
           </div>

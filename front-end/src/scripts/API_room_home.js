@@ -57,6 +57,7 @@ function displayGroupMessage(data) {
             `;
             if (window.innerWidth < 640) {
                 listItemRoom.addEventListener('click', () => {
+                    
                     document.querySelector('#boxChat').style.display = 'block';
                     document.querySelector('#listChat').style.display = 'none';
                 });
@@ -69,7 +70,7 @@ function displayGroupMessage(data) {
                     e.stopPropagation();
                     const id = e.target.getAttribute('data-id');
                     deleteData(`http://192.168.1.3:8000/api/rooms/${id}`).then(() => {
-                        fetchData("http://192.168.1.3:8000/api/rooms").then(displayMessage);
+                        fetchData("http://192.168.1.3:8000/api/rooms").then(displayGroupMessage);
                     });
                 }
             });
@@ -81,6 +82,15 @@ function displayGroupMessage(data) {
 
 const btnGroups = document.querySelector('.btn-group');
 btnGroups.addEventListener('click', () => {
+    const btnNewChatElement = document.querySelector('#btn-new-chat');
+    const btnNewChatsElement = document.querySelector('#btn-new-chats');
+    
+    if (btnNewChatElement) {
+        btnNewChatElement.id = 'btn-new-groups';
+    }
+    else if(btnNewChatsElement){
+        btnNewChatsElement.id = 'btn-new-groups';
+    }
     fetchData("http://192.168.1.3:8000/api/rooms").then(displayGroupMessage);
     document.getElementsByTagName('h1')[0].innerText = "GROUPS";
     document.getElementById('chats').style.display = 'none';

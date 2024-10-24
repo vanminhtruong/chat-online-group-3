@@ -29,6 +29,22 @@ async function deleteData(urlDelete) {
     }
 }
 
+async function creatData(urlCreate) {
+    try {
+        const response = await fetch(urlCreate, {
+            method: 'POST',
+        });
+
+        if (!response.ok) {
+            throw new Error(`Failed to delete message! Status: ${response.status}`);
+        }
+
+    } catch (error) {
+        console.error('Có lỗi xảy ra khi tạo:', error);
+    }
+}
+
+
 function displayMessage(result) {
     const messageList = document.getElementById('chats');
     messageList.innerHTML = '';
@@ -65,7 +81,6 @@ function displayMessage(result) {
             `;
             if (window.innerWidth < 640) {
                 listItemChats.addEventListener('click', () => {
-
                     document.querySelector('#boxChat').style.display = 'block';
                     document.querySelector('#listChat').style.display = 'none';
                 });
@@ -91,8 +106,20 @@ function displayMessage(result) {
 const btnChats = document.querySelector('.btn-chat');
 fetchData("http://192.168.1.3:8000/api/messages").then(displayMessage);
 btnChats.addEventListener('click', () => {
+    const btnNewChatElement = document.querySelector('#btn-new-chat');
+    const btnNewGroupsElement = document.querySelector('#btn-new-groups');
+    
+    if (btnNewChatElement) {
+        btnNewChatElement.id = 'btn-new-chats';
+    }
+    else if(btnNewGroupsElement){
+        btnNewGroupsElement.id = 'btn-new-chats';
+    }
     fetchData("http://192.168.1.3:8000/api/messages").then(displayMessage);
     document.getElementsByTagName('h1')[0].innerText = "CHATS";
     document.getElementById('chats').style.display = 'block';
     document.getElementById('groups').style.display = 'none';
 });
+
+
+

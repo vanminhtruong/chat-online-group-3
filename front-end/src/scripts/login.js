@@ -1,5 +1,5 @@
 document.getElementById('loginForm').addEventListener('submit', (e) => {
-    e.preventDefault(); 
+    e.preventDefault();
     handleLogin();
 });
 
@@ -34,9 +34,16 @@ async function handleLogin() {
             }
 
             const data = await response.json();
-            alert(data.message); 
-            
-        } 
+            //alert(data.message); 
+
+            window.location.href = './home.html';
+            localStorage.setItem('user_id', data.data.id);
+            localStorage.setItem('username', data.data.username);
+            console.log(data.data.id);
+            console.log(data.data.username);
+            console.log(data.message);
+
+        }
         catch (error) {
             console.error('Error:', error);
             alert('An error occurred. Please try again later.');
@@ -66,3 +73,4 @@ function passwordCheck() {
     }
     document.getElementById("validPassword").innerHTML = message;
 }
+
