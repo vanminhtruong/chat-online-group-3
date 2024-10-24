@@ -7,7 +7,6 @@ async function fetchData(url) {
         }
 
         const result = await response.json();
-        console.log(result)
         const dataArray = Array.isArray(result.data) ? result.data : [result.data];
 
         return dataArray;
@@ -15,6 +14,32 @@ async function fetchData(url) {
         console.error('Có lỗi xảy ra:', error);
     }
 }
+
+async function sendMessage(url, messageContent, receiverId) {
+    try {
+        const response = await fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ 
+                content: messageContent, 
+                receiver_id: receiverId
+            }),
+        });
+
+        if (!response.ok) {
+            const errorData = await response.json(); 
+            throw new Error(`Failed to send message! Status: ${response.status}, Error: ${errorData.message}`);
+        }
+
+        const newMessage = await response.json();
+        displayMessage([newMessage]); 
+    } catch (error) {
+        console.error('Có lỗi xảy ra khi gửi tin nhắn:', error);
+    }
+}
+
 async function deleteData(urlDelete) {
     try {
         const response = await fetch(urlDelete, {
@@ -24,16 +49,17 @@ async function deleteData(urlDelete) {
         if (!response.ok) {
             throw new Error(`Failed to delete message! Status: ${response.status}`);
         }
-
+        console.log('Tin nhắn đã được xóa thành công');
 
     } catch (error) {
         console.error('Có lỗi xảy ra khi xóa:', error);
     }
 }
 
-function displayMessage(dataArray){
+function displayMessage(dataArray) {
     if (dataArray) {
         const messageList = document.getElementById('chats');
+        messageList.innerHTML = ''; 
 
         dataArray.forEach(item => {
             const listItemChats = document.createElement('div');
@@ -42,7 +68,6 @@ function displayMessage(dataArray){
             listItemChats.innerHTML = `
                 <div class="w-12 h-12 bg-gray-300 rounded-full mr-3">
                     <img
-                        id="backMenu"
                         src="https://placehold.co/200x/ffa8e4/ffffff.svg?text=ʕ•́ᴥ•̀ʔ&font=Lato"
                         alt="User Avatar"
                         class="w-12 h-12 rounded-full"
@@ -55,33 +80,40 @@ function displayMessage(dataArray){
                     </div>
                 </div>
                 <img
-                   id="delete-chat"
                     class="w-8 h-8 opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer"
-                    src="../assets/icon/detele.svg"
+                    src="../assets/icon/delete.svg"
                     alt="Xóa tin nhắn"
-                     data-id="${item.id}"
+                    data-id="${item.id}"
                 />
             `;
 
-            const deleteButton = listItemChats.querySelectorAll('#delete-chat');
-            deleteButton.forEach(icon => {
-                icon.addEventListener('click', (e) => {
-                    const id = e.target.getAttribute('data-id');
-                    deleteData(`http://192.168.1.3:8000/api/messages/${id}`);
-                });
+            listItemChats.querySelector('img[alt="Xóa tin nhắn"]').addEventListener('click', (e) => {
+                const id = e.target.getAttribute('data-id');
+                deleteData(`http://192.168.1.3:8000/api/messages/${id}`);
+                listItemChats.remove(); 
             });
 
             messageList.appendChild(listItemChats);
         });
     }
 }
-const btnChats = document.querySelector('.btn-chat');
 
-btnChats.addEventListener('click', () => {
-    fetchData("http://192.168.1.3:8000/api/messages").then(displayMessage);
-    document.getElementsByTagName('h1')[0].innerText="CHATS"
-    document.getElementById('chats').style.display=('block');
-    document.getElementById('groups').style.display=('none');
-    
+const chatForm = document.querySelector('#send-message');
+const messageInput = chatForm.querySelector('input[type="text"]');
+chatForm.addEventListener('submit', (e) => {
+    e.preventDefault(); 
+    const messageContent = messageInput.value.trim();
+
+    if (messageContent) {
+        sendMessage("http://192.168.1.3:8000/api/messages", messageContent); 
+        messageInput.value = '';
+    }
 });
 
+const btnChats = document.querySelector('.btn-chat');
+btnChats.addEventListener('click', () => {
+    fetchData("http://192.168.1.3:8000/api/messages").then(displayMessage);
+    document.getElementsByTagName('h1')[0].innerText = "CHATS";
+    document.getElementById('chats').style.display = 'block';
+    document.getElementById('groups').style.display = 'none';
+});

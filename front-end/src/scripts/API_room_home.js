@@ -50,7 +50,7 @@ function displayGroupMessage(data){
                 <img
                     id="delete-room"
                     class="w-8 h-8 opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer"
-                    src="../assets/icon/detele.svg"
+                    src="../assets/icon/delete.svg"
                     alt="Xóa tin nhắn"
                     data-id="${item.id}"
                 />
