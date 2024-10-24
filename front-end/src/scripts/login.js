@@ -35,7 +35,7 @@ async function handleLogin() {
 
             const data = await response.json();
             alert(data.message); 
-            window.location.href = 'http://127.0.0.1:5500/src/pages/home.html'; 
+            
         } 
         catch (error) {
             console.error('Error:', error);
