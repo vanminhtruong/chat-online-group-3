@@ -16,4 +16,6 @@ Route::post('/logout', [AuthController::class, 'logout']);
 
 
 Route::apiResource('/rooms',RoomController::class);
+Route::post('/rooms/{roomId}/leave', [RoomController::class, 'leaveRoom']);
+
 Route::apiResource('/messages',MessageController::class);

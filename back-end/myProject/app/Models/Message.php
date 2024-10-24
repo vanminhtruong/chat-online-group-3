@@ -9,7 +9,8 @@ class Message extends Model
 {
     use HasFactory;
     
-    public $timestamps = false;
+    // Biến này xác định rằng mô hình Message không sử dụng các trường created_at và updated_at để theo dõi thời gian tạo và cập nhật bản ghi.
+    public $timestamps = true;
 
     protected $hidden = ['created_at', 'updated_at'];
 
