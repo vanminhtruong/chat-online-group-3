@@ -3,6 +3,48 @@ document.getElementById('signupForm').addEventListener('submit', (e) => {
     handleSignup();
 });
 
+async function handleSignup() {
+    usernameCheck();
+    emailCheck();
+    passwordCheck();
+    confirmPasswordCheck();
+
+    const username = document.getElementById("fullName").value.trim();
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+
+    const validName = !document.getElementById("validName").innerHTML;
+    const validEmail = !document.getElementById("validEmail").innerHTML;
+    const validPassword = !document.getElementById("validPassword").innerHTML;
+    const validConfirmPassword = !document.getElementById("validConfirmPassword").innerHTML;
+
+    if (validName && validEmail && validPassword && validConfirmPassword) {
+        try {
+            const response = await fetch('http://192.168.1.3:8000/api/register', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({username : username, email: email, password: password }),
+            });
+
+            if (!response.ok) {
+                const errorData = await response.json();
+                console.error('Error:', errorData);
+                alert(errorData.message || 'Đăng ký không thành công. Vui lòng thử lại.');
+                return;
+            }
+
+            const data = await response.json();
+            alert(data.message); 
+            window.location.href = 'http://127.0.0.1:5500/src/pages/login.html';
+        } catch (error) {
+            console.error('Error:', error);
+            alert('Đã xảy ra lỗi. Vui lòng thử lại sau.');
+        }
+    }
+}
+
 function usernameCheck() {
     let username = document.getElementById("fullName").value.trim();
     let message = "";
@@ -44,7 +86,7 @@ function passwordCheck() {
             message = "Please fill in this field";
             break;
         case (password.length < 5 || password.length > 10):
-            message = "Password must be at least 5-10 characters";
+            message = "Password must be at least 6-10 characters";
             break;
         default:
             message = "";
@@ -67,15 +109,4 @@ function confirmPasswordCheck() {
             message = "";
     }
     document.getElementById("validConfirmPassword").innerHTML = message;
-}
-
-function handleSignup() {
-    usernameCheck();
-    emailCheck();
-    passwordCheck();
-    confirmPasswordCheck();
-
-    if (!validName && !validEmail && !validPassword && !validConfirmPassword) {
-        window.location.href = "src/pages/login.html"; 
-    }
 }
