@@ -1,38 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chat Online</title>
+    <link rel="stylesheet" href="../output.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../css/home.css" />
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Chat Online</title>
-  <link rel="stylesheet" href="../output.css" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900&display=swap"
-    rel="stylesheet" />
-  <link rel="stylesheet" href="../css/home.css" />
-</head>
-
-<body class="h-screen overflow-hidden font-publicSans">
-  <div class="flex h-screen overflow-hidden ">
-    <!-- navbar left -->
-    <div class="sm:w-[8%] w-[20%] flex  flex-col justify-between py-10 items-center border-r border-gray-300">
-      <div>
-        <img class="object-cover" src="../assets/image/logo.png" alt="" />
-      </div>
-      <div class="flex flex-col gap-7">
-        <div class="relative group">
-          <button class="btn-chat cursor-pointer">
-            <img class="icon" src="../assets/icon/mess.svg" alt="" />
-          </button>
-          <div
-            class="absolute hidden w-3/4 text-center group-hover:block bg-gray-800 text-white text-sm rounded-lg p-2 -top-10 left-1/2 transform -translate-x-1/2">
-            Chats
-          </div>
+  <body class="h-screen overflow-hidden font-publicSans">
+    <div class="flex h-screen overflow-hidden">
+      <!-- navbar left -->
+      <div
+        class="sm:w-[8%] w-[20%] flex flex-col justify-between py-10 items-center border-r border-gray-300"
+      >
+        <div>
+          <img class="object-cover" src="../assets/image/logo.png" alt="" />
         </div>
+        <div class="flex flex-col gap-7">
+          <div class="relative group">
+            <button class="btn-chat cursor-pointer">
+              <img class="icon" src="../assets/icon/mess.svg" alt="" />
+            </button>
+            <div
+              class="absolute hidden w-3/4 text-center group-hover:block bg-gray-800 text-white text-sm rounded-lg p-2 -top-10 left-1/2 transform -translate-x-1/2"
+            >
+              Chats
+            </div>
+          </div>
 
-        <div class="relative group">
+          <!-- <div class="relative group">
           <button class="btn-group cursor-pointer">
             <img class="icon" src="../assets/icon/group.svg" alt="" />
           </button>
@@ -40,121 +43,128 @@
             class="absolute hidden w-3/4 text-center group-hover:block bg-gray-800 text-white text-sm rounded-lg p-2 -top-10 left-1/2 transform -translate-x-1/2">
             Group
           </div>
+        </div> -->
+        </div>
+        <div class="relative group">
+          <button class="cursor-pointer">
+            <img class="icon" src="../assets/icon/logout.svg" alt="" />
+          </button>
+
+          <div
+            class="absolute hidden w-3/4 text-center group-hover:block bg-gray-800 text-white text-sm rounded-lg p-2 -top-10 left-1/2 transform -translate-x-1/2"
+          >
+            Logout
+          </div>
         </div>
       </div>
-      <div class="relative group">
-        <button class="cursor-pointer">
-          <img class="icon" src="../assets/icon/logout.svg" alt="" />
-        </button>
-
+      <!-- Sidebar1 -->
+      <div
+        id="listChat"
+        class="sm:block bg-white border-r border-gray-300 w-[80%] sm:w-[30%] lg:w-[30%] xl:w-[30%] overflow-hidden"
+        style="background: #edf2f7"
+      >
+        <!-- Sidebar Header -->
         <div
-          class="absolute hidden w-3/4 text-center group-hover:block bg-gray-800 text-white text-sm rounded-lg p-2 -top-10 left-1/2 transform -translate-x-1/2">
-          Logout
-        </div>
-      </div>
-    </div>
-    <!-- Sidebar1 -->
-    <div id = 'listChat' class=" sm:block bg-white border-r border-gray-300 w-[80%] sm:w-[30%] lg:w-[30%] xl:w-[30%] overflow-hidden"
-      style="background: #edf2f7">
-      <!-- Sidebar Header -->
-      <div class="p-4 border-b border-gray-300 flex justify-between mx-auto items-center">
-
-        <h1 class="text-xl sm:text-2xl font-semibold">CHATS</h1>
-          <button id="btn-new-chat" class="menuButton focus:outline-none cursor-pointer">
-            <img class="w-6 h-6 sm:w-8 sm:h-8" src="../assets/icon/dropdow.svg" alt="" />
-          </button>
-
-          
-          <div id="createRoomForm" class="hidden mt-4 p-4 bg-white shadow-md rounded">
-            <h2 class="text-lg font-semibold mb-2">Nhập Thông Tin Phòng</h2>
-            <input type="text" id="roomName" placeholder="Tên Phòng" class="border p-2 w-full mb-2" />
-            <div class="mb-2">
-                <label class="block mb-1">Người Tham Gia:</label>
-                <label class="inline-flex items-center">
-                    <input type="checkbox" value="user1" class="form-checkbox h-5 w-5 text-blue-600">
-                    <span class="ml-2">Người A</span>
-                </label>
-                <label class="inline-flex items-center">
-                    <input type="checkbox" value="user2" class="form-checkbox h-5 w-5 text-blue-600">
-                    <span class="ml-2">Người B</span>
-                </label>
-                <label class="inline-flex items-center">
-                    <input type="checkbox" value="user3" class="form-checkbox h-5 w-5 text-blue-600">
-                    <span class="ml-2">Người C</span>
-                </label>
-            </div>
-            <button id="submitRoom" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">Tạo</button>
-        </div>
-         
-      </div>
-
-      <!-- Chats -->
-      <div id="chats" class="overflow-y-auto h-full p-3 mb-9 pb-20">
-        
-
-      </div>
-      <!-- Chat Group -->
-      <div id="groups" class=" overflow-y-auto h-full p-3 mb-9 pb-20">
-
-      </div>
-    </div>
-
-    <!-- Main Chat Area -->
-    <div id="boxChat" class=" hidden flex-col w-screen sm:flex sm:w-[70%] h-full ">
-      <!-- Chat Header -->
-      <div class="bg-white flex gap-4 p-4 text-gray-700 border-b border-gray-300">
-        <img id="btn-back" class="cursor-pointer w-6 h-6 sm:hidden" src="../assets/icon/arrowBack.svg" alt="" />
-        <h1 class="text-lg sm:text-2xl font-semibold">Truong</h1>
-      </div>
-
-      <!-- Chat Messages -->
-      <div class="flex-1 overflow-y-auto  h-[80%]  p-4 pb-36">
-        <!-- Incoming Message -->
-        <div id="receiver" class="flex mb-4 cursor-pointer ">
-          <div class="w-9 h-9 rounded-full flex items-center justify-center mr-2">
-            <img src="https://placehold.co/200x/ffa8e4/ffffff.svg?text=ʕ•́ᴥ•̀ʔ&font=Lato" alt="User Avatar"
-              class="w-8 h-8 rounded-full" />
-          </div>
-          <div class="flex max-w-xs sm:max-w-sm lg:max-w-md bg-gray-100 rounded-lg p-3">
-            <p id="text-receiver" class="text-gray-700">Hey Bob, how's it going?</p>
-          </div>
-        </div>
-
-        <!-- Outgoing Message -->
-        <div id="sender" class="flex justify-end mb-4 cursor-pointer">
-          <div class="flex max-w-xs sm:max-w-sm lg:max-w-md bg-indigo-500 text-white rounded-lg p-3">
-            <p id="text-send">
-              Hi Truong! I'm good, just finished a great book. How about you?
-            </p>
-          </div>
-          <div class="w-9 h-9 rounded-full flex items-center justify-center ml-2">
-            <img src="https://placehold.co/200x/b7a8ff/ffffff.svg?text=ʕ•́ᴥ•̀ʔ&font=Lato" alt="My Avatar"
-              class="w-8 h-8 rounded-full" />
-          </div>
-        </div>
-      </div>
-
-      <!-- Chat Input -->
-      <div class="bg-white border-t border-gray-300 p-4 w-full">
-        <div class="flex items-center gap-2">
+          class="relative p-4 border-b border-gray-300 flex justify-between mx-auto items-center"
+        >
+          <h1 class="text-xl sm:text-2xl font-semibold">CHATS</h1>
           <button
-            class="w-10 h-10 bg-blue-800 rounded-full text-white text-2xl font-bold flex items-center justify-center cursor-pointer">
-            +
+            id="btn-new-chat"
+            class="menuButton focus:outline-none cursor-pointer"
+          >
+            <img
+              class="w-6 h-6 sm:w-8 sm:h-8"
+              src="../assets/icon/dropdow.svg"
+              alt=""
+            />
           </button>
-          <input type="text" placeholder="Type a message..."
-            class="flex-1 p-2 rounded-md border border-gray-300 focus:outline-none focus:border-blue-500" />
-          <button class="bg-indigo-500 text-white px-4 py-2 rounded-md cursor-pointer">
-            Send
-          </button>
+
+          <div
+            id="createRoomForm"
+            class="absolute top-10 right-0 hidden mt-4 p-4 bg-white shadow-md rounded"
+          >
+            <h2 class="text-lg font-semibold mb-2">Nhập Thông Tin Phòng</h2>
+            <input
+              type="text"
+              id="roomName"
+              placeholder="Tên Phòng"
+              class="border p-2 w-full mb-2"
+            />
+            <div class="mb-2">
+              <label class="block mb-1">Nhập id người Tham Gia:</label>
+              <label class="inline-flex items-center">
+                <input
+                  type="text"
+                  class="border p-2 w-full mb-2"
+                  placeholder="1234...."
+                />
+              </label>
+            </div>
+            <button
+              id="submitRoom"
+              class="bg-green-500 w-full text-white px-4 py-2 rounded hover:bg-green-600"
+            >
+              Tạo
+            </button>
+          </div>
+        </div>
+
+        <!-- Chats -->
+        <div id="chats" class="overflow-y-auto h-full p-3 mb-9 pb-20"></div>
+      </div>
+
+      <!-- Main Chat  -->
+      <div
+        id="boxChat"
+        class="hidden flex-col w-screen sm:flex sm:w-[70%] h-full "
+      >
+        <!-- Chat Header -->
+        <p id = "notification-chat" class="w-full h-full flex justify-center items-center text-2xl font-bold">Chưa có tin nhắn nào </p>
+        <div id = "form-chat" class="hidden h-full">
+          <div
+            class="bg-white flex gap-4 p-4 text-gray-700 border-b border-gray-300"
+          >
+            <img
+              id="btn-back"
+              class="cursor-pointer w-6 h-6 sm:hidden"
+              src="../assets/icon/arrowBack.svg"
+              alt=""
+            />
+            <h1 class="text-lg sm:text-2xl font-semibold">Truong</h1>
+          </div>
+
+          <!-- Chat Messages -->
+          <div class="flex-1 overflow-y-auto h-[80%] p-4 pb-36">
+           
+           
+          </div>
+
+          <!-- Chat Input -->
+          <div class="bg-white border-t border-gray-300 p-4 w-full">
+            <div class="flex items-center gap-2">
+              <button
+                class="w-10 h-10 bg-blue-800 rounded-full text-white text-2xl font-bold flex items-center justify-center cursor-pointer"
+              >
+                +
+              </button>
+              <input id="inputMessage"
+                type="text"
+                placeholder="Type a message..."
+                class="flex-1 p-2 rounded-md border border-gray-300 focus:outline-none focus:border-blue-500"
+              />
+              <button id="sendMessageButton"
+                class="bg-indigo-500 text-white px-4 py-2 rounded-md cursor-pointer"
+              >
+                Send
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-
-  </div>
-  <script src="../scripts/handle_home.js"></script>
-  <script src="../scripts/API_chats_home.js"></script>
-  <script src="../scripts/API_room_home.js"></script>
-
-</body>
-
+    <script src="../scripts/handle_home.js"></script>
+    <script src="../scripts/API_chats_home.js"></script>
+     <!-- <script src="../scripts/API_room_home.js"></script> -->
+    <script src="../scripts/create_chats.js"></script> 
+  </body>
 </html>

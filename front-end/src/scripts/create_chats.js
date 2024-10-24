@@ -1,4 +1,4 @@
-document.querySelector('.menuButton').addEventListener('click', function() {
+document.querySelector('#btn-new-chat').addEventListener('click', function() {
     document.getElementById('createRoomForm').classList.toggle('hidden');
 });
 
