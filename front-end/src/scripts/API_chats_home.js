@@ -7,14 +7,13 @@ async function fetchData(url) {
         }
 
         const result = await response.json();
-        console.log(result)
-        const dataArray = Array.isArray(result.data) ? result.data : [result.data];
-
-        return dataArray;
+        return result;
     } catch (error) {
         console.error('Có lỗi xảy ra:', error);
+        return { data: [] };
     }
 }
+
 async function deleteData(urlDelete) {
     try {
         const response = await fetch(urlDelete, {
@@ -25,17 +24,19 @@ async function deleteData(urlDelete) {
             throw new Error(`Failed to delete message! Status: ${response.status}`);
         }
 
-
     } catch (error) {
         console.error('Có lỗi xảy ra khi xóa:', error);
     }
 }
 
-function displayMessage(dataArray){
-    if (dataArray) {
-        const messageList = document.getElementById('chats');
+function displayMessage(result) {
+    const messageList = document.getElementById('chats');
+    messageList.innerHTML = '';
 
-        dataArray.forEach(item => {
+    const data = result.data;
+
+    if (data) {
+        data.forEach(item => {
             const listItemChats = document.createElement('div');
             listItemChats.classList.add('flex', 'items-center', 'mb-4', 'cursor-pointer', 'hover:bg-gray-300', 'p-2', 'rounded-md', 'group');
 
@@ -55,33 +56,43 @@ function displayMessage(dataArray){
                     </div>
                 </div>
                 <img
-                   id="delete-chat"
+                    id="delete-chat"
                     class="w-8 h-8 opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer"
                     src="../assets/icon/detele.svg"
                     alt="Xóa tin nhắn"
-                     data-id="${item.id}"
+                    data-id="${item.id}"
                 />
             `;
+            if (window.innerWidth < 640) {
+                listItemChats.addEventListener('click', () => {
 
-            const deleteButton = listItemChats.querySelectorAll('#delete-chat');
-            deleteButton.forEach(icon => {
-                icon.addEventListener('click', (e) => {
-                    const id = e.target.getAttribute('data-id');
-                    deleteData(`http://192.168.1.3:8000/api/messages/${id}`);
+                    document.querySelector('#boxChat').style.display = 'block';
+                    document.querySelector('#listChat').style.display = 'none';
                 });
+            }
+
+            const deleteButton = listItemChats.querySelector('#delete-chat');
+            deleteButton.addEventListener('click', (e) => {
+                const isConfirmed = confirm('Bạn có chắc chắn muốn xóa phòng này không?');
+                if (isConfirmed) {
+                    e.stopPropagation();
+                    const id = e.target.getAttribute('data-id');
+                    deleteData(`http://192.168.1.3:8000/api/messages/${id}`).then(() => {
+                        fetchData("http://192.168.1.3:8000/api/messages").then(displayMessage);
+                    });
+                }
             });
 
             messageList.appendChild(listItemChats);
         });
     }
 }
-const btnChats = document.querySelector('.btn-chat');
 
+const btnChats = document.querySelector('.btn-chat');
+fetchData("http://192.168.1.3:8000/api/messages").then(displayMessage);
 btnChats.addEventListener('click', () => {
     fetchData("http://192.168.1.3:8000/api/messages").then(displayMessage);
-    document.getElementsByTagName('h1')[0].innerText="CHATS"
-    document.getElementById('chats').style.display=('block');
-    document.getElementById('groups').style.display=('none');
-    
+    document.getElementsByTagName('h1')[0].innerText = "CHATS";
+    document.getElementById('chats').style.display = 'block';
+    document.getElementById('groups').style.display = 'none';
 });
-

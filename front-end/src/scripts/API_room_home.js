@@ -30,10 +30,10 @@ async function deleteData(urlDelete) {
     }
 }
 
-function displayGroupMessage(data){
+function displayGroupMessage(data) {
+    const roomList = document.getElementById('groups');
+    roomList.innerHTML = '';
     if (data) {
-        const roomList = document.getElementById('groups');
-
         data.forEach(item => {
             const listItemRoom = document.createElement('div');
             listItemRoom.classList.add('flex', 'items-center', 'mb-4', 'cursor-pointer', 'hover:bg-gray-300', 'p-2', 'rounded-md', 'group');
@@ -55,26 +55,37 @@ function displayGroupMessage(data){
                     data-id="${item.id}"
                 />
             `;
-            const deleteButton = listItemRoom.querySelectorAll('#delete-room');
-            deleteButton.forEach(icon => {
-                icon.addEventListener('click', (e) => {
-                    const id = e.target.getAttribute('data-id');
-                    deleteData(`http://192.168.1.3:8000/api/rooms/${id}`);
+            if (window.innerWidth < 640) {
+                listItemRoom.addEventListener('click', () => {
+                    document.querySelector('#boxChat').style.display = 'block';
+                    document.querySelector('#listChat').style.display = 'none';
                 });
+            }
+
+            const deleteButton = listItemRoom.querySelector('#delete-room');
+            deleteButton.addEventListener('click', (e) => {
+                const isConfirmed = confirm('Bạn có chắc chắn muốn xóa phòng này không?');
+                if (isConfirmed) {
+                    e.stopPropagation();
+                    const id = e.target.getAttribute('data-id');
+                    deleteData(`http://192.168.1.3:8000/api/rooms/${id}`).then(() => {
+                        fetchData("http://192.168.1.3:8000/api/rooms").then(displayMessage);
+                    });
+                }
             });
 
             roomList.appendChild(listItemRoom);
         });
     }
-   
 }
 
 const btnGroups = document.querySelector('.btn-group');
 btnGroups.addEventListener('click', () => {
     fetchData("http://192.168.1.3:8000/api/rooms").then(displayGroupMessage);
-    document.getElementsByTagName('h1')[0].innerText="GROUPS";
-    document.getElementById('chats').style.display=('none');
-    document.getElementById('groups').style.display=('block');
-  });
-      
-    
+    document.getElementsByTagName('h1')[0].innerText = "GROUPS";
+    document.getElementById('chats').style.display = 'none';
+    document.getElementById('groups').style.display = 'block';
+});
+
+
+
