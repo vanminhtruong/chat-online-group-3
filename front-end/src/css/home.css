@@ -1,0 +1,15 @@
+.icon{
+    width: 70px;
+    height: 70px;
+    cursor: pointer;
+    padding: 20px;
+}
+.icon:hover{
+    background: #c0c2cb;
+    border-radius: 10px;
+    
+}
+
+ #sidebar {
+     transition: transform 0.3s ease;
+ }
