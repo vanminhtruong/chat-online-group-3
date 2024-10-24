@@ -1,24 +1,19 @@
-  const menuButton = document.querySelector('.menuButton');
-  const menuDropdown = document.querySelector('.menuDropdown');
+document.querySelector('#btn-back').addEventListener('click', () => {
+  document.querySelector('#boxChat').style.display = 'none';
+  document.querySelector('#listChat').style.display = 'block';
+});
 
-  const sidebar = document.getElementById('sidebar');
-        const closeButton = document.getElementById('closeButton');
+function reponsiveDisplay() {
+  if (window.innerWidth < 640) {
+      document.querySelector('#boxChat').style.display = 'none';
+      document.querySelector('#listChat').style.display = 'block';
+  } else {
+      document.querySelector('#boxChat').style.display = 'block';
+      document.querySelector('#listChat').style.display = 'block';
+  }
+}
 
-        menuButton.addEventListener('click', () => {
-            sidebar.classList.toggle('-translate-x-full');
-        });
+reponsiveDisplay();
 
-        closeButton.addEventListener('click', () => {
-            sidebar.classList.add('-translate-x-full');
-        });
-
-  
-
-  
-  
-
-
-  document.getElementById('delete-chat').addEventListener('click',()=>{
-    console.log("aoidhouiashdoasdosa");
-    
-  })
+// Lắng nghe sự kiện thay đổi kích thước cửa sổ
+window.addEventListener('resize', reponsiveDisplay);
