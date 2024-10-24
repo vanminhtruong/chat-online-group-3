@@ -43,7 +43,7 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'username' => 'required|string', // Thay đổi từ email sang username
+            'email' => 'required|email', // Thay đổi từ username sang email
             'password' => 'required',
         ]);
 
@@ -54,17 +54,19 @@ class AuthController extends Controller
             ], 422);
         }
 
-        if (!Auth::attempt($request->only('username', 'password'))) { // Thay đổi từ email sang username
+        if (!Auth::attempt($request->only('email', 'password'))) { // Thay đổi từ username sang email
             return response()->json([
-                'message' => 'Tên đăng nhập hoặc mật khẩu không chính xác'
+                'message' => 'Email hoặc mật khẩu không chính xác' // Cập nhật thông báo lỗi
             ], 401);
         }
 
-        $user = User::where('username', $request->username)->first(); // Thay đổi từ email sang username
+        $user = User::where('email', $request->email)->first(); // Thay đổi từ username sang email
 
         return response()->json([
             'message' => 'Đăng nhập thành công',
-            'data' => $user
+            'data' => [
+                'username' => $user->username,
+            ]
         ], 200);
     }
 
